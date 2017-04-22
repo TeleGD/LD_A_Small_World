@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Player {
+import character.Entity;
+
+public class Player extends Entity{
 
 	
 	private ArrayList<Image> imgBattle;
