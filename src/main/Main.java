@@ -25,7 +25,7 @@ public class Main extends StateBasedGame{
 	
 
 	public Main() {
-		super("MultiGame");
+		super("No Title (Yet)");
 	}
 
 
@@ -34,7 +34,7 @@ public class Main extends StateBasedGame{
 	public void initStatesList(GameContainer container) throws SlickException {
 		this.addState(new World());
 		this.addState(new Battle());
-		this.enterState(2);
+		this.enterState(1);
 	}
 	
 }
