@@ -47,18 +47,26 @@ public class BattleMenu {
 	private static void execOption(){
 		switch (selection){
 		case 0:
+			Battle.getPlayer().setTemp();
+			Battle.getPlayer().setAction(0);
+			Battle.setTurnDone();
 			System.out.println("il ne manque plus qu'a choisir l'ennemi a attaquer");
 			break;
 		case 1:
+			Battle.getPlayer().setAction(1);
 			System.out.println("defendez vous");
 			break;
 		case 2:
+			Battle.getPlayer().setAction(2);
 			System.out.println("il faut choisir le pouvoir maintenant");
 			break;
 		case 3:
+			Battle.getPlayer().setAction(3);
 			System.out.println("coward");
 			break;
 		}
 	}
+	
+	
 
 }

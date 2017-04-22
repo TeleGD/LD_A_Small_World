@@ -1,17 +1,15 @@
-package character.player;
+package character.enemies;
 
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Player {
+public class Enemy {
 
-	
 	private ArrayList<Image> imgBattle;
-	private int attack,defence,speed,power;
-	
-	public Player(){
+
+	public Enemy(){
 		imgBattle=new ArrayList<Image>();
 		try {
 			imgBattle.add(new Image("img/Char_Battle/ennemy1droitestop.png").getScaledCopy(2));
@@ -23,12 +21,9 @@ public class Player {
 		} catch (SlickException e) {
 			System.out.println("Player images couldn't be loaded");
 		}
-		
 	}
-	
 	
 	public ArrayList<Image> getImgBattle() {
 		return imgBattle;
 	}
-
 }

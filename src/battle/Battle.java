@@ -15,7 +15,7 @@ public class Battle extends BasicGameState{
 
 	public static int ID=2;
 	private StateBasedGame game;
-	private BattlePlayer player;
+	private static BattlePlayer player;
 	private ArrayList<BattleEnemy> enemies;
 	private static boolean turnDone;//if the orders already have been given
 	
@@ -26,8 +26,9 @@ public class Battle extends BasicGameState{
 	
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		player=new BattlePlayer();
+		player=new BattlePlayer(arg0);
 		enemies=new ArrayList<BattleEnemy>();
+		//enemies.add(new BattleEnemy());
 		
 	}
 
@@ -56,12 +57,16 @@ public class Battle extends BasicGameState{
 	}
 
 	public static void setTurnDone(){
-		turnDone=false;
+		turnDone=true;
 	}
 	
 	public void keyPressed(int key, char c) {
 		if(!turnDone){
 			BattleMenu.keyPressed(key,c);
 		}
+	}
+	
+	public static BattlePlayer getPlayer(){
+		return player;
 	}
 }
