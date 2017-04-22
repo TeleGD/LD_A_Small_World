@@ -1,11 +1,12 @@
 package main;
 
-import java.io.File;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import battle.Battle;
+import world.World;
 
 
 public class Main extends StateBasedGame{
@@ -31,5 +32,9 @@ public class Main extends StateBasedGame{
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
+		this.addState(new World());
+		this.addState(new Battle());
+		this.enterState(2);
 	}
+	
 }

@@ -11,6 +11,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import character.player.Player;
+
 
 public class World extends BasicGameState{
 
@@ -43,5 +45,10 @@ public class World extends BasicGameState{
 	}
 
 	public static void reset() {
+	}
+
+	public static Player getPlayer() {
+		// TODO Auto-generated method stub
+		return new Player();
 	}
 }
