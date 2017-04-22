@@ -41,7 +41,7 @@ public class BattlePlayer{
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
 		switch(action){
 		case 0:
-			simpleAttack(arg2);
+			going(arg2);
 		case 1:
 			break;
 		case 2:
@@ -93,7 +93,7 @@ public class BattlePlayer{
 		this.power = power;
 	}
 
-	public void simpleAttack(int delta){
+	public void going(int delta){
 		if(x<main.Main.longueur*3/4){
 			x+=0.2*delta;
 			if(System.currentTimeMillis()-temp>150){
@@ -105,6 +105,27 @@ public class BattlePlayer{
 						imgT0=img.get(2);
 					else
 						imgT0=img.get(1);
+				}
+				temp=System.currentTimeMillis();
+			}
+		}else {
+			imgT1=imgT0;
+			imgT0=img.get(0);
+		}
+	}
+	
+	public void returning(int delta){
+		if(x>main.Main.longueur/4-img.get(0).getWidth()/2){
+			x-=0.2*delta;
+			if(System.currentTimeMillis()-temp>150){
+				if((imgT0.equals(img.get(4)))||(imgT0.equals(img.get(5)))){
+					imgT1=imgT0;
+					imgT0=img.get(3);
+				}else{
+					if(imgT1.equals(img.get(4)))
+						imgT0=img.get(5);
+					else
+						imgT0=img.get(4);
 				}
 				temp=System.currentTimeMillis();
 			}
