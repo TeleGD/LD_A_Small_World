@@ -14,7 +14,7 @@ public class Main extends StateBasedGame{
 	public static int hauteur=720;
 	
 	public static void main(String[] args) throws SlickException {
-		System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
+		//System.setProperty("org.lwjgl.librarypath", new File("natives").getAbsolutePath());
 		AppGameContainer app = new AppGameContainer(new Main(),longueur, hauteur, false);
 		app.setTargetFrameRate(60);
 		app.setVSync(true);
