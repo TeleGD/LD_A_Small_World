@@ -1,23 +1,20 @@
-package world;
+package battle;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import character.player.Player;
+public class Battle extends BasicGameState{
 
-
-public class World extends BasicGameState{
-
-	public static int ID=1;
-	private static StateBasedGame game;
+	public static int ID=2;
+	private StateBasedGame game;
+	private BattlePlayer player;
+	private ArrayList<BattleEnnemy> enemies;
+	
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -25,18 +22,24 @@ public class World extends BasicGameState{
 	}
 	
 	@Override
-	public void enter(GameContainer arg0, StateBasedGame arg1){
-		//Ici mettre tous les chargement d'image, creation de perso/decor et autre truc qui mettent du temps
+	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
+		// TODO Auto-generated method stub
+		
 	}
-	
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-
+		player.render(arg0, arg1, arg2);
+		for(BattleEnemy e:enemies)
+			e.render(arg0, arg1, arg2);
 	}
 
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+		player.update(arg0, arg1, arg2);
+		for(BattleEnemy e:enemies)
+			e.update(arg0, arg1, arg2);
+		
 	}
 
 	@Override
@@ -44,11 +47,4 @@ public class World extends BasicGameState{
 		return ID;
 	}
 
-	public static void reset() {
-	}
-
-	public static Player getPlayer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
