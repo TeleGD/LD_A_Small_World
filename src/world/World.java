@@ -49,6 +49,6 @@ public class World extends BasicGameState{
 
 	public static Player getPlayer() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Player();
 	}
 }
