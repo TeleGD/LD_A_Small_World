@@ -12,6 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import character.player.Player;
+import donjon.Level;
 
 
 public class World extends BasicGameState{
@@ -32,7 +33,7 @@ public class World extends BasicGameState{
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-
+		Level.render(arg0,arg1,arg2);
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class World extends BasicGameState{
 
 	public static void reset() {
 	}
-
+	
 	public static Player getPlayer() {
 		// TODO Auto-generated method stub
 		return new Player();
