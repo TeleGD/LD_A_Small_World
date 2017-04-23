@@ -15,7 +15,7 @@ import battle.Brawler;
 
 
 public class BattleEnemy implements Brawler{
-	
+
 	long temp;// used t change the image
 	private int attack,defence,speed,power;
 	private ArrayList<Image> img;
@@ -27,7 +27,7 @@ public class BattleEnemy implements Brawler{
 	private int PV;
 	private int exp;
 	private boolean destructed;
-	
+
 	public BattleEnemy(GameContainer arg0,float y){
 		img=new ArrayList<Image>();
 		try {
@@ -55,37 +55,43 @@ public class BattleEnemy implements Brawler{
 		power=0;
 		destructed=false;
 	}
-	
+
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2){
-		arg2.drawImage(imgT0,x, y);
-		arg2.setColor(Color.red);
-		arg2.fillRect(arg0.getWidth()*3/4+img.get(0).getWidth()/2, y+imgT0.getHeight()+10, 100, 10);
-		arg2.setColor(Color.green);
-		arg2.fillRect(arg0.getWidth()*3/4+img.get(0).getWidth()/2, y+imgT0.getHeight()+10,100*PV/maxPV, 10);
+		if(PV>0){
+			arg2.drawImage(imgT0,x, y);
+			arg2.setColor(Color.red);
+			arg2.fillRect(arg0.getWidth()*3/4+img.get(0).getWidth()/2, y+imgT0.getHeight()+10, 100, 10);
+			arg2.setColor(Color.green);
+			arg2.fillRect(arg0.getWidth()*3/4+img.get(0).getWidth()/2, y+imgT0.getHeight()+10,100*PV/maxPV, 10);
+		}
 	}
-	
+
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
-		switch(action){
-		case 0:
-			if(done==0){
-				going(arg2);
-			}else if(done==2)
-				returning(arg2);
-			else if(done==1){
-				System.out.println("animation ennemie");
-				Battle.getPlayer().looseHP(10*attack/Battle.getPlayer().getDefence());
-				done=2;
+		if(PV>0){
+			switch(action){
+			case 0:
+				if(done==0){
+					going(arg2);
+				}else if(done==2)
+					returning(arg2);
+				else if(done==1){
+					System.out.println("animation ennemie");
+					Battle.getPlayer().looseHP(10*attack/Battle.getPlayer().getDefence());
+					done=2;
+				}
+				break;
+			case 1:
+				done=-1;
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
 			}
-			break;
-		case 1:
+		}else{
 			done=-1;
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
 		}
 	}
 
@@ -128,8 +134,8 @@ public class BattleEnemy implements Brawler{
 	public void setPower(int power) {
 		this.power = power;
 	}
-	
-	
+
+
 	public void going(int delta){
 		if(x>main.Main.longueur/4+40){
 			x-=0.2*delta;
@@ -151,7 +157,7 @@ public class BattleEnemy implements Brawler{
 			done=1;
 		}
 	}
-	
+
 	public void returning(int delta){
 		if(x<main.Main.longueur*3/4+img.get(0).getWidth()/2){
 			x+=0.2*delta;
@@ -173,7 +179,7 @@ public class BattleEnemy implements Brawler{
 			done=-1;
 		}
 	}
-	
+
 	public void keyPressed(int key, char c) {
 		if(key==Input.KEY_SPACE)
 			action=0;
@@ -182,7 +188,7 @@ public class BattleEnemy implements Brawler{
 	public void setAction(int i) {
 		action=i;
 	}
-	
+
 	public void looseHP(int i){
 		PV-=i;
 		if (PV<=0){
@@ -191,11 +197,11 @@ public class BattleEnemy implements Brawler{
 			Battle.getPlayer().gainXP(exp);
 		}
 	}
-	
+
 	public boolean isDestructed(){
 		return destructed;	
 	}
-	
+
 	public int getDone(){
 		return done;
 	}

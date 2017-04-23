@@ -8,6 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 import character.enemies.BattleEnemy;
 import character.player.BattlePlayer;
@@ -72,9 +74,8 @@ public class Battle extends BasicGameState{
 			
 		}
 		
-		for(int i=0;i<enemies.size();i++){
-			if(enemies.get(i).getLife()==0)
-				enemies.remove(i);
+		if(enemies.size()==0){
+			game.enterState(World.ID,new FadeOutTransition(),new FadeInTransition());
 		}
 	}
 
