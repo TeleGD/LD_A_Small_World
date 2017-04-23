@@ -23,7 +23,9 @@ public class Enemy extends Entity{
 	private float targetX,targetY;
 	private Level level;
 	private boolean fightFlag;
-
+	private ArrayList<BattleEnemy> group; 
+	
+	
 	public Enemy(){
 		imgBattle=new ArrayList<Image>();
 		try {
@@ -43,23 +45,7 @@ public class Enemy extends Entity{
 		return imgBattle;
 	}
 
-	public Enemy(Level l,float x, float y){
-		imgBattle=new ArrayList<Image>();
-		try {
-			imgBattle.add(new Image("img/Char_Battle/ennemy1droitestop.png"));
-			imgBattle.add(new Image("img/Char_Battle/ennemy1droitePD.png"));
-			imgBattle.add(new Image("img/Char_Battle/ennemy1droitePG.png"));
-			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchestop.png"));
-			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchePD.png"));
-			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchePG.png"));
-		} catch (SlickException e) {
-			System.out.println("Enemy images couldn't be loaded");
-		}
-		level = l;
-		this.x = x;
-		this.y = y;
-		fightFlag = false;
-	}	
+		
 	
 	public Enemy(Level l){
 		imgBattle=new ArrayList<Image>();
@@ -77,7 +63,28 @@ public class Enemy extends Entity{
 		fightFlag = false;
 	}
 	
-	
+	//Please use this one.
+	public Enemy(Level l,float x, float y, BattleEnemy e1, BattleEnemy e2, BattleEnemy e3){
+		imgBattle=new ArrayList<Image>();
+		try {
+			imgBattle.add(new Image("img/Char_Battle/ennemy1droitestop.png"));
+			imgBattle.add(new Image("img/Char_Battle/ennemy1droitePD.png"));
+			imgBattle.add(new Image("img/Char_Battle/ennemy1droitePG.png"));
+			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchestop.png"));
+			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchePD.png"));
+			imgBattle.add(new Image("img/Char_Battle/ennemy1gauchePG.png"));
+		} catch (SlickException e) {
+			System.out.println("Enemy images couldn't be loaded");
+		}
+		level = l;
+		this.x = x;
+		this.y = y;
+		fightFlag = false;
+		group = new ArrayList<BattleEnemy>();
+		group.add(e1);
+		group.add(e2);
+		group.add(e3);
+	}
 	
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
 		arg2.setColor(Color.magenta);
