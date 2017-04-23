@@ -13,6 +13,7 @@ import character.Entity;
 import character.player.Player;
 import donjon.Cell;
 import donjon.Level;
+import main.Main;
 import world.World;
 
 public class Enemy extends Entity{
@@ -21,6 +22,7 @@ public class Enemy extends Entity{
 	private int moveTimer = 75; 
 	private float targetX,targetY;
 	private Level level;
+	private boolean fightFlag;
 
 	public Enemy(){
 		imgBattle=new ArrayList<Image>();
@@ -34,6 +36,7 @@ public class Enemy extends Entity{
 		} catch (SlickException e) {
 			System.out.println("Player images couldn't be loaded");
 		}
+		fightFlag = false;
 	}
 	
 	public ArrayList<Image> getImgBattle() {
@@ -55,6 +58,7 @@ public class Enemy extends Entity{
 		level = l;
 		this.x = x;
 		this.y = y;
+		fightFlag = false;
 	}	
 	
 	public Enemy(Level l){
@@ -70,6 +74,7 @@ public class Enemy extends Entity{
 			System.out.println("Enemy images couldn't be loaded");
 		}
 		level = l;
+		fightFlag = false;
 	}
 	
 	
@@ -86,6 +91,7 @@ public class Enemy extends Entity{
 			moveTimer = 75;
 			//this.getCell();
 			move(arg2);
+			if(fightFlag) arg1.enterState(2);
 		}
 	}
 
@@ -190,6 +196,7 @@ public class Enemy extends Entity{
 			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*speed;
 			if(distToPlayer(p) <= 10){
 				//Enter combat
+				fightFlag = true;
 			}
 		}
 		else {
