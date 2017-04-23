@@ -60,11 +60,10 @@ public class Level{
 	
 	
 	//render et update
-	public static void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-		Level a=new Level(1, 1, 7, 2);
-		for(int i = 0; i<a.grid.length; i++){//init ligne
-			for(int j=0;j<a.grid[i].length;j++){ //init colonne
-				a.grid[i][j].getSprite().draw(j*100,i*100,100,100);
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
+		for(int i = 0; i<grid.length; i++){//init ligne
+			for(int j=0;j<grid[i].length;j++){ //init colonne
+				grid[i][j].getSprite().draw(j*100,i*100,100,100);
 			}
 		}
 	}
