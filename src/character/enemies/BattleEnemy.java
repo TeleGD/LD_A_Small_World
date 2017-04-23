@@ -60,20 +60,21 @@ public class BattleEnemy implements Brawler{
 	}
 	
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
-		System.out.println("est bien appelé");
 		System.out.println("action = "+action);
 		switch(action){
 		case 0:
-			if(done==0)
+			if(done==0){
 				going(arg2);
-			else if(done==2)
+			}else if(done==2)
 				returning(arg2);
 			else if(done==1){
 				System.out.println("animation ennemie");
 				Battle.getPlayer().looseHP(10*attack/Battle.getPlayer().getDefence());
 				done=2;
 			}
+			break;
 		case 1:
+			done=-1;
 			break;
 		case 2:
 			break;

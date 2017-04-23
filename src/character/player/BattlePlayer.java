@@ -51,6 +51,7 @@ public class BattlePlayer implements Brawler{
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
+		System.out.println(action);
 		switch(action){
 		case 0:
 			if(done==0)
@@ -166,6 +167,7 @@ public class BattlePlayer implements Brawler{
 
 	public void setAction(int k){
 		action=k;
+		System.out.println("action mise: "+k);
 	}
 	
 	public void setUndone(){
