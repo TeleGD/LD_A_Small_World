@@ -98,9 +98,7 @@ public class Enemy extends Entity{
 	
 	public boolean isInView(Entity p){
 		//We check the cases on the line between the two entities.
-		boolean result = true;
 		float lineY,lineX,coeff;
-		int side;
 		//Main steps of the algorithm (note that the steps can be done in one pass.)
 		
 		//First step : getting the cases
@@ -153,32 +151,32 @@ public class Enemy extends Entity{
 		}else{
 			coeff = (y-p.getY())/(x-p.getX());
 			for(Cell[] lin : level.grid){
-				System.out.println("new line");
 				for(Cell c : lin){
-					System.out.print("|cell");
 					for(lineX = c.getX(); lineX < c.getX()+64; lineX++){
 						lineY = lineX*coeff + y;
 						if(lineY>=c.getY() && lineY<=c.getY()+64) {
 							if(c.getX()*coeff+y < c.getY() || (c.getX()+64)*coeff+y < c.getY()){
 								//Up
+								if(c.getCellType() == 0 ||c.getCellType() == 2||c.getCellType() == 5||c.getCellType() == 6||c.getCellType() == 7||c.getCellType() == 8||c.getCellType() == 13) return false;
 							}
 							if(c.getX()*coeff+y > c.getY()+64 || (c.getX()+64)*coeff+y > c.getY()+64){
 								//Down
+								if(c.getCellType() == 1 ||c.getCellType() == 3||c.getCellType() == 4||c.getCellType() == 5||c.getCellType() == 6||c.getCellType() == 8||c.getCellType() == 10) return false;
 							}
 							if(c.getX()*coeff+y > c.getY() && c.getX()*coeff+y < c.getY()+64){
 								//Left
+								if(c.getCellType() == 2 ||c.getCellType() == 3 ||c.getCellType() == 4||c.getCellType() == 5||c.getCellType() ==7||c.getCellType() ==11||c.getCellType() ==14)return false;
 							}
 							if((c.getX()+64)*coeff+y > c.getY() && (c.getX()+64)*coeff+y < c.getY()+64){
 								//Right
+								if(c.getCellType() ==0||c.getCellType() ==1||c.getCellType() ==4||c.getCellType() ==7||c.getCellType() ==8||c.getCellType() ==12||c.getCellType() ==14)return false;
 							}
 						}
 					}
 				}
-				System.out.println("|");
 			}
 		}
-		
-		return result;
+		return true;
 	}
 	
 	public void move() {
