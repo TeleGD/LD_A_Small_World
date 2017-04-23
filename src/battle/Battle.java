@@ -2,6 +2,7 @@ package battle;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -20,6 +21,7 @@ public class Battle extends BasicGameState{
 	private static boolean turnDone;//if the orders already have been given
 	private static ArrayList<Brawler> brawlers;
 	static int a;
+	private BattleMenu menu;
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -37,15 +39,18 @@ public class Battle extends BasicGameState{
 		brawlers.add(player);
 		for(BattleEnemy e:enemies)
 			brawlers.add(e);
+		menu=new BattleMenu();
 	}
 
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
+		arg2.setColor(Color.pink);
+		arg2.fillRect(0, 0, 1280, 720);
 		player.render(arg0, arg1, arg2);
 		for(BattleEnemy e:enemies)
 			e.render(arg0, arg1, arg2);
 		if(!turnDone){
-			BattleMenu.render(arg0,arg1,arg2);
+			menu.render(arg0,arg1,arg2);
 		}
 
 	}
@@ -53,7 +58,7 @@ public class Battle extends BasicGameState{
 	@Override
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		if(!turnDone){
-			BattleMenu.update(arg0,arg1,arg2);
+			menu.update(arg0,arg1,arg2);
 		}else {
 			if(a<brawlers.size()){
 				brawlers.get(a).update(arg0, arg1, arg2);
@@ -63,6 +68,7 @@ public class Battle extends BasicGameState{
 			}else{
 				turnDone=false;
 			}
+			
 		}
 	}
 
@@ -85,7 +91,7 @@ public class Battle extends BasicGameState{
 
 	public void keyPressed(int key, char c) {
 		if(!turnDone){
-			BattleMenu.keyPressed(key,c);
+			menu.keyPressed(key,c);
 		}
 		for(BattleEnemy e:enemies)
 			e.keyPressed(key, c);
@@ -97,5 +103,15 @@ public class Battle extends BasicGameState{
 
 	public static ArrayList<BattleEnemy> getEnemies() {
 		return enemies;
+	}
+
+	public static void chooseEnAction() {
+		for(BattleEnemy e:enemies){
+			if(Math.random()>0.75)
+				e.setAction(1);
+			else
+				e.setAction(0);
+		}
+			
 	}
 }

@@ -12,25 +12,31 @@ import character.enemies.BattleEnemy;
 public class BattleMenu {
 
 	private static int selection;//1:fight  2:def  3:power  4:flee "grosso modo"
-
-	public static void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+	private Cursor cursor;
+	
+	public BattleMenu(){
+		cursor=new Cursor(1280*3/4-20,720/4);
+	}
+	
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 		Battle.getPlayer().setAction(4);
 		for (BattleEnemy e:Battle.getEnemies())
 			e.setAction(0);
 	}
 	
-	public static void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) {
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) {
 		arg2.setColor(Color.black);
-		arg2.fillRect(0, arg0.getHeight()*3/4, arg0.getWidth()/4, arg0.getHeight()/4);
+		arg2.fillRect(0, arg0.getHeight()*2/3, arg0.getWidth()/4, arg0.getHeight()/3);
 		arg2.setColor(Color.white);
 		arg2.drawString("Attack", 50, arg0.getHeight()*2/3+10);
 		arg2.drawString("Defend", 50, arg0.getHeight()*2/3+60);
 		arg2.drawString("Power", 50, arg0.getHeight()*2/3+110);
 		arg2.drawString("Flee", 50, arg0.getHeight()*2/3+160);
 		arg2.drawString(">>>", 20, arg0.getHeight()*2/3+10+selection*50);
+		cursor.render(arg0, arg1, arg2);
 	}
 
-	public static void keyPressed(int key, char c) {
+	public void keyPressed(int key, char c) {
 		switch(key){
 		case Input.KEY_DOWN:
 			if(selection<3)
@@ -52,13 +58,12 @@ public class BattleMenu {
 
 	}
 
-	private static void execOption(){
+	private void execOption(){
+		Battle.chooseEnAction();
 		switch (selection){
 		case 0:
-			Battle.getPlayer().setTemp();
-			Battle.getPlayer().setAction(0);
-			Battle.getPlayer().setUndone();
-			Battle.setTurnDone();
+			
+			cursor.show();
 			Battle.getPlayer().setTarget(Battle.getEnemies().get(0));
 			System.out.println("il ne manque plus qu'a choisir l'ennemi a attaquer");
 			break;
@@ -77,6 +82,6 @@ public class BattleMenu {
 		}
 	}
 
-
+	
 
 }
