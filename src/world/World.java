@@ -25,7 +25,9 @@ public class World extends BasicGameState{
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
 		game=arg1;
-		l = new Level(1, 1, 7, 2);
+		int hauteur=12;
+		int largeur=20;
+		l = new Level(1, hauteur, largeur);
 	}
 	
 	@Override

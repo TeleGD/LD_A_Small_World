@@ -9,7 +9,7 @@ public class Room {
 
 	
 	//Variables
-	private int length;
+	private int height;
 	private int width;//length et width correspondent au nombre de cases de longueur et de largeur.
 	private int entry;//correspond aux nombres de tunnels débouchant sur la salle
 	private int sizeMin;//borne sur la taille minimale de la salle
@@ -20,18 +20,18 @@ public class Room {
 	public Room(int l, int w, int e){
 		sizeMin=6;
 		lwMin=2;
-		this.length=l;
+		this.height=l;
 		this.width=w;
 		this.entry=e;
 	}
 	
 	
 	//Getters et Setters
-	public int getLength() {
-		return length;
+	public int getHeight() {
+		return height;
 	}
-	public void setLength(int length) {
-		this.length = length;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	public int getWidth() {
 		return width;

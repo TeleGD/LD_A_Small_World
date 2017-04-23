@@ -1,30 +1,31 @@
 package donjon;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
-
-import world.World;
 
 public class Level{
 	
 	
 	//Variables
 	private int id;
-	private int height;
-	private int width;//length et width correspondent au nombre de cases de hauteur et de largeur.
-	private int rooms;
+	public int height;
+	public int width;//length et width correspondent au nombre de cases de hauteur et de largeur.
+	public ArrayList<Room> rooms;
 	public Cell grid[][];
 	
 	
 	//Constructeur
-	public Level(int id, int h, int w, int r) throws SlickException{
-		this.id=id;
+	public Level(int id, int h, int w) throws SlickException{
+		this.setId(id);
 		this.height=h;
 		this.width=w; 
-		this.rooms=r;
 		this.grid=initLevel(h,w);
+		this.rooms=roomGenerator(h,w,60);
 	}
 	
 	
@@ -38,7 +39,30 @@ public class Level{
 	}
 	
 	
+	//Permet de générer les salles avec une surface inférieure ou égale à une partie de la surface du niveau
+	private ArrayList<Room> roomGenerator(int h,int w, int percent){
+		int levelArea=Math.round(h*w*percent/100);	//nombres de cases du niveau occupables par des salles
+		int roomArea=0; //compteur de cases occupées par des salles
+		ArrayList<Room> rooms=new ArrayList<Room>();
+		
+		while(levelArea-9>roomArea){
+			Random rand = new Random();
+			int roomH = rand.nextInt(h - 3 + 1) + 3;
+			int roomW= rand.nextInt(w-3+1)+3;
+			
+		}
+		
+		return rooms;
+	}
+	
+	
 	//Getters et Setters
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getHeight() {
 		return height;
 	}
@@ -51,23 +75,21 @@ public class Level{
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public int getRooms() {
-		return rooms;
-	}
-	public void setRooms(int rooms) {
-		this.rooms = rooms;
-	}
+
 	
 	
 	//render et update
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
 		for(int i = 0; i<grid.length; i++){//init ligne
 			for(int j=0;j<grid[i].length;j++){ //init colonne
-				grid[i][j].getSprite().draw(j*100,i*100,100,100);
+				grid[i][j].getSprite().draw(j*50,i*50,50,50);
 			}
 		}
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
 	}
+
+
+
 }
