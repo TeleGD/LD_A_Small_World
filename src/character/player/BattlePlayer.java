@@ -2,14 +2,17 @@ package character.player;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
+import battle.Brawler;
+import character.enemies.BattleEnemy;
 import world.World;
 
-public class BattlePlayer{
+public class BattlePlayer implements Brawler{
 
 	long temp;// used t change the image
 	private int life;
@@ -17,17 +20,23 @@ public class BattlePlayer{
 	private ArrayList<Image> img;
 	private Image imgT0,imgT1;
 	float x,y;
-	public static enum Action {none,attack,defend,power,flee}
 	private int action;//0:attack  1:defend   2:power  3:flee  4:none
+	private int done;//0: joueur pas arrive a distance  1:joueur a pas tape  2:joueur pas rentre
+	private int maxPV=100;
+	private int PV=47;
+	private BattleEnemy target;
+	
 
 	public BattlePlayer(GameContainer arg0){
 		img=World.getPlayer().getImgBattle();
-		System.out.println(img);
 		x=arg0.getWidth()/4-img.get(0).getWidth()/2;
 		y=arg0.getHeight()/2-img.get(0).getHeight()/2;
 		imgT0=img.get(0);
 		action=4;
-
+		attack=10;
+		defence=10;
+		speed=10;
+		power=10;
 	}
 
 
@@ -35,13 +44,25 @@ public class BattlePlayer{
 
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2){
 		arg2.drawImage(imgT0,x, y);
-
+		arg2.setColor(Color.red);
+		arg2.fillRect(arg0.getWidth()/4-img.get(0).getWidth()/2, arg0.getHeight()/2+10+img.get(0).getHeight()/2, 100, 10);
+		arg2.setColor(Color.green);
+		arg2.fillRect(arg0.getWidth()/4-img.get(0).getWidth()/2, arg0.getHeight()/2+10+img.get(0).getHeight()/2,100*PV/maxPV, 10);
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
 		switch(action){
 		case 0:
-			going(arg2);
+			if(done==0)
+				going(arg2);
+			else if(done==2)
+				returning(arg2);
+			else if(done==1){
+				System.out.println("animation de coup");
+				target.looseHP(10*attack/target.getDefence());
+				done=2;
+			}
+				
 		case 1:
 			break;
 		case 2:
@@ -94,7 +115,7 @@ public class BattlePlayer{
 	}
 
 	public void going(int delta){
-		if(x<main.Main.longueur*3/4){
+		if(x<main.Main.longueur*3/4-40){
 			x+=0.2*delta;
 			if(System.currentTimeMillis()-temp>150){
 				if((imgT0.equals(img.get(1)))||(imgT0.equals(img.get(2)))){
@@ -111,6 +132,7 @@ public class BattlePlayer{
 		}else {
 			imgT1=imgT0;
 			imgT0=img.get(0);
+			done=1;
 		}
 	}
 	
@@ -132,6 +154,7 @@ public class BattlePlayer{
 		}else {
 			imgT1=imgT0;
 			imgT0=img.get(0);
+			done=-1;
 		}
 	}
 
@@ -144,4 +167,37 @@ public class BattlePlayer{
 	public void setAction(int k){
 		action=k;
 	}
+	
+	public void setUndone(){
+		done=0;
+	}
+
+
+
+
+	public BattleEnemy getTarget() {
+		return target;
+	}
+
+
+
+
+	public void setTarget(BattleEnemy target) {
+		this.target = target;
+	}
+	
+	public void looseHP(int i){
+		PV-=i;
+		if (PV<0)
+			PV=0;
+	}
+	
+	public int getDone(){
+		return done;
+	}	
+	
+	public void setDone(int i) {
+		done=i;
+	}
 }
+

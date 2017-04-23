@@ -4,13 +4,21 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+
+import character.enemies.BattleEnemy;
 
 public class BattleMenu {
 
 	private static int selection;//1:fight  2:def  3:power  4:flee "grosso modo"
 
-
+	public static void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+		Battle.getPlayer().setAction(4);
+		for (BattleEnemy e:Battle.getEnemies())
+			e.setAction(0);
+	}
+	
 	public static void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) {
 		arg2.setColor(Color.black);
 		arg2.fillRect(0, arg0.getHeight()*3/4, arg0.getWidth()/4, arg0.getHeight()/4);
@@ -49,7 +57,9 @@ public class BattleMenu {
 		case 0:
 			Battle.getPlayer().setTemp();
 			Battle.getPlayer().setAction(0);
+			Battle.getPlayer().setUndone();
 			Battle.setTurnDone();
+			Battle.getPlayer().setTarget(Battle.getEnemies().get(0));
 			System.out.println("il ne manque plus qu'a choisir l'ennemi a attaquer");
 			break;
 		case 1:
@@ -66,7 +76,7 @@ public class BattleMenu {
 			break;
 		}
 	}
-	
-	
+
+
 
 }
