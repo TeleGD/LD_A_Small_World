@@ -17,15 +17,16 @@ import battle.Brawler;
 public class BattleEnemy implements Brawler{
 	
 	long temp;// used t change the image
-	private int life;
 	private int attack,defence,speed,power;
 	private ArrayList<Image> img;
 	private Image imgT0,imgT1;
 	float x,y;
 	private int action;//0:attack  1:defend   2:power  3:flee  4:none
 	private int done;
-	private int maxPV=40;
-	private int PV=35;
+	private int maxPV;
+	private int PV;
+	private int exp;
+	private boolean destructed;
 	
 	public BattleEnemy(GameContainer arg0,float y){
 		img=new ArrayList<Image>();
@@ -43,12 +44,16 @@ public class BattleEnemy implements Brawler{
 		imgT1=img.get(4);
 		x=arg0.getWidth()*3/4+img.get(0).getWidth()/2;
 		this.y=y;
+		maxPV=40;
+		PV=35;
 		done=0;
 		action=0;
+		exp=50;
 		attack=5;
 		defence=5;
 		speed=7;
 		power=0;
+		destructed=false;
 	}
 	
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2){
@@ -60,7 +65,6 @@ public class BattleEnemy implements Brawler{
 	}
 	
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
-		System.out.println("action = "+action);
 		switch(action){
 		case 0:
 			if(done==0){
@@ -86,11 +90,11 @@ public class BattleEnemy implements Brawler{
 	}
 
 	public int getLife() {
-		return life;
+		return PV;
 	}
 
 	public void setLife(int life) {
-		this.life = life;
+		this.PV = life;
 	}
 
 	public int getAttack() {
@@ -181,8 +185,15 @@ public class BattleEnemy implements Brawler{
 	
 	public void looseHP(int i){
 		PV-=i;
-		if (PV<0)
+		if (PV<=0){
 			PV=0;
+			destructed=true;
+			Battle.getPlayer().gainXP(exp);
+		}
+	}
+	
+	public boolean isDestructed(){
+		return destructed;	
 	}
 	
 	public int getDone(){

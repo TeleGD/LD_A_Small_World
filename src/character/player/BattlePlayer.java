@@ -22,21 +22,25 @@ public class BattlePlayer implements Brawler{
 	float x,y;
 	private int action;//0:attack  1:defend   2:power  3:flee  4:none
 	private int done;//0: joueur pas arrive a distance  1:joueur a pas tape  2:joueur pas rentre
-	private int maxPV=100;
-	private int PV=47;
+	private int maxPV;
+	private int PV;
 	private BattleEnemy target;
+	private int XPwon;
 	
 
-	public BattlePlayer(GameContainer arg0){
+	public BattlePlayer(GameContainer arg0,Player p){
 		img=World.getPlayer().getImgBattle();
 		x=arg0.getWidth()/4-img.get(0).getWidth()/2;
 		y=arg0.getHeight()/2-img.get(0).getHeight()/2;
 		imgT0=img.get(0);
 		action=4;
-		attack=10;
-		defence=10;
-		speed=10;
-		power=10;
+		attack=p.getAttack();
+		defence=p.getDefence();
+		speed=p.getSpeed();
+		power=p.getPower();
+		XPwon=0;
+		maxPV=100;
+		PV=47;
 	}
 
 
@@ -200,6 +204,13 @@ public class BattlePlayer implements Brawler{
 	
 	public void setDone(int i) {
 		done=i;
+	}
+
+
+
+
+	public void gainXP(int exp) {
+		this.XPwon+=exp;
 	}
 }
 

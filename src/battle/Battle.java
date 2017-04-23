@@ -11,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import character.enemies.BattleEnemy;
 import character.player.BattlePlayer;
+import world.World;
 
 public class Battle extends BasicGameState{
 
@@ -30,7 +31,7 @@ public class Battle extends BasicGameState{
 
 	@Override
 	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		player=new BattlePlayer(arg0);
+		player=new BattlePlayer(arg0,World.getPlayer());
 		enemies=new ArrayList<BattleEnemy>();
 		enemies.add(new BattleEnemy(arg0,arg0.getHeight()/4-50 ));
 		enemies.add(new BattleEnemy(arg0,arg0.getHeight()*2/4 -50));
@@ -69,6 +70,11 @@ public class Battle extends BasicGameState{
 				turnDone=false;
 			}
 			
+		}
+		
+		for(int i=0;i<enemies.size();i++){
+			if(enemies.get(i).getLife()==0)
+				enemies.remove(i);
 		}
 	}
 
