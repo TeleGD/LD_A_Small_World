@@ -1,5 +1,7 @@
 package battle;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -16,9 +18,15 @@ public class BattleMenu {
 
 	public BattleMenu(){
 		cursor=new Cursor(1280*3/4-20,720/4);
+		
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+		ArrayList<Float> a=new ArrayList<Float>();
+		for(BattleEnemy e : Battle.getEnemies()){
+			a.add(e.getY());
+		}
+		cursor.setPos(a);
 		for (BattleEnemy e:Battle.getEnemies())
 			e.setAction(0);
 	}

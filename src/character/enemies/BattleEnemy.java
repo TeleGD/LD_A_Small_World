@@ -27,6 +27,7 @@ public class BattleEnemy implements Brawler{
 	private int PV;
 	private int exp;
 	private boolean destructed;
+	private int defAct;
 
 	public BattleEnemy(GameContainer arg0,float y){
 		img=new ArrayList<Image>();
@@ -54,6 +55,7 @@ public class BattleEnemy implements Brawler{
 		speed=7;
 		power=0;
 		destructed=false;
+		defAct=1;
 	}
 
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2){
@@ -76,11 +78,12 @@ public class BattleEnemy implements Brawler{
 					returning(arg2);
 				else if(done==1){
 					System.out.println("animation ennemie");
-					Battle.getPlayer().looseHP(10*attack/Battle.getPlayer().getDefence());
+					Battle.getPlayer().looseHP((10*attack/Battle.getPlayer().getDefence())/Battle.getPlayer().getDef());
 					done=2;
 				}
 				break;
 			case 1:
+				defAct=2;
 				done=-1;
 				break;
 			case 2:
@@ -186,6 +189,7 @@ public class BattleEnemy implements Brawler{
 	}
 
 	public void setAction(int i) {
+		defAct=1;
 		action=i;
 	}
 
@@ -208,5 +212,13 @@ public class BattleEnemy implements Brawler{
 
 	public void setDone(int i) {
 		done=i;
+	}
+	
+	public int getDef(){
+		return defAct;
+	}
+	
+	public float getY(){
+		return y;
 	}
 }

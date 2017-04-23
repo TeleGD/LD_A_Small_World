@@ -73,10 +73,14 @@ public class Battle extends BasicGameState{
 			}
 			
 		}
-		
+		for(int i =0;i<enemies.size();i++){
+			if(enemies.get(i).isDestructed())
+				enemies.remove(i);
+		}
 		if(enemies.size()==0){
 			game.enterState(World.ID,new FadeOutTransition(),new FadeInTransition());
 		}
+		
 	}
 
 	@Override

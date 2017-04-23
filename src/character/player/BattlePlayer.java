@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
+import battle.Battle;
 import battle.Brawler;
 import character.enemies.BattleEnemy;
 import world.World;
@@ -26,7 +27,8 @@ public class BattlePlayer implements Brawler{
 	private int PV;
 	private BattleEnemy target;
 	private int XPwon;
-	
+	private int defAct;//Pour savoir si on est en mode defense
+
 
 	public BattlePlayer(GameContainer arg0,Player p){
 		img=World.getPlayer().getImgBattle();
@@ -40,7 +42,7 @@ public class BattlePlayer implements Brawler{
 		power=p.getPower();
 		XPwon=0;
 		maxPV=100;
-		PV=47;
+		PV=47;defAct=1;
 	}
 
 
@@ -52,6 +54,9 @@ public class BattlePlayer implements Brawler{
 		arg2.fillRect(arg0.getWidth()/4-img.get(0).getWidth()/2, arg0.getHeight()/2+10+img.get(0).getHeight()/2, 100, 10);
 		arg2.setColor(Color.green);
 		arg2.fillRect(arg0.getWidth()/4-img.get(0).getWidth()/2, arg0.getHeight()/2+10+img.get(0).getHeight()/2,100*PV/maxPV, 10);
+		arg2.setColor(Color.black);
+		if(defAct==2)
+			arg2.drawString("en mode defense", 300, 600);
 	}
 
 	public void update(GameContainer arg0, StateBasedGame arg1, int arg2){
@@ -64,11 +69,13 @@ public class BattlePlayer implements Brawler{
 				returning(arg2);
 			else if(done==1){
 				System.out.println("animation de coup");
-				target.looseHP(10*attack/target.getDefence());
+				target.looseHP((10*attack/target.getDefence())/target.getDef());
 				done=2;
 			}
-				
+			break;
 		case 1:
+			defAct=2;
+			done=-1;
 			break;
 		case 2:
 			break;
@@ -140,7 +147,7 @@ public class BattlePlayer implements Brawler{
 			done=1;
 		}
 	}
-	
+
 	public void returning(int delta){
 		if(x>main.Main.longueur/4-img.get(0).getWidth()/2){
 			x-=0.2*delta;
@@ -170,10 +177,11 @@ public class BattlePlayer implements Brawler{
 	}
 
 	public void setAction(int k){
+		defAct=1;
 		action=k;
 		System.out.println("action mise: "+k);
 	}
-	
+
 	public void setUndone(){
 		done=0;
 	}
@@ -191,23 +199,25 @@ public class BattlePlayer implements Brawler{
 	public void setTarget(BattleEnemy target) {
 		this.target = target;
 	}
-	
+
 	public void looseHP(int i){
 		PV-=i;
 		if (PV<0)
 			PV=0;
 	}
-	
+
 	public int getDone(){
 		return done;
 	}	
-	
+
 	public void setDone(int i) {
 		done=i;
 	}
 
 
-
+	public int getDef(){
+		return defAct;
+	}
 
 	public void gainXP(int exp) {
 		this.XPwon+=exp;
