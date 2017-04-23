@@ -19,7 +19,7 @@ public class Enemy extends Entity{
 
 	private ArrayList<Image> imgBattle;
 	private int moveTimer = 75; 
-	private Object nearestCase;
+	private float targetX,targetY;
 	private Level level;
 
 	public Enemy(){
@@ -85,7 +85,7 @@ public class Enemy extends Entity{
 		if(moveTimer <=0){
 			moveTimer = 75;
 			//this.getCell();
-			move();
+			move(arg2);
 		}
 	}
 
@@ -179,17 +179,23 @@ public class Enemy extends Entity{
 		return true;
 	}
 	
-	public void move() {
+	public void move(int dt) {
 		// Check if the player is in direct view
 		Player p = World.getPlayer();
 		if(isInView(p)){
 			// Then move towards it
+			targetX = p.getX();
+			targetY = p.getY();
+			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*speed;
+			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*speed;
 			if(distToPlayer(p) <= 10){
 				//Enter combat
 			}
 		}
 		else {
-			// Or do nothing
+			// Or move towards the last known location
+			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*speed;
+			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*speed;
 		}
 	}
 	
