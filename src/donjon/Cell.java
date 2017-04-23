@@ -13,13 +13,14 @@ public class Cell {
 	private int x;
 	private int y;
 	private Image sprite;
-	
+	private int cellType;
 	
 	//Constructeur
 	public Cell(int x, int y) throws SlickException{
 		this.x=x;
 		this.y=y;
 		this.sprite=new Image("img/Corridor/noWalls.png");
+		this.setCellType(0);
 	}
 
 
@@ -45,11 +46,21 @@ public class Cell {
 	
 	
 	//render et update
-		public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
-			//Affichage
-			arg2.drawImage(sprite,0,0);
-		}
+	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) throws SlickException {
+		//Affichage
+		arg2.drawImage(sprite,0,0);
+	}
 
-		public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
-		}
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+	}
+
+
+	public int getCellType() {
+		return cellType;
+	}
+
+
+	public void setCellType(int cellType) {
+		this.cellType = cellType;
+	}
 }
