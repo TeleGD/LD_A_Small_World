@@ -27,8 +27,9 @@ public class Cursor {
 	}
 
 	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2) {
-		if(shown)
+		if(shown){
 			arg2.drawImage(img, x, y+selection*720/4);
+		}
 	}
 
 
@@ -43,28 +44,30 @@ public class Cursor {
 	public void keyPressed(int key, char c) {
 		if(shown){
 			switch(key){
-			case Input.KEY_UP:
+			case Input.KEY_DOWN:
 				if (selection<Battle.getEnemies().size()-1)
 					selection++;
 				else
 					selection=0;
 				break;
-			case Input.KEY_DOWN:
+			case Input.KEY_UP:
 				if (selection>0)
 					selection--;
 				else
 					selection=Battle.getEnemies().size()-1;
 				break;
 			case Input.KEY_ENTER:
-				Battle.getPlayer().setTarget(Battle.getEnemies().get(selection));
-				Battle.getPlayer().setTemp();
-				Battle.getPlayer().setAction(0);
-				Battle.getPlayer().setUndone();
+				Battle.getPlayer().setTarget(Battle.getEnemies().get(this.selection));
 				Battle.setTurnDone();
+				shown=false;
 				break;
 
 
 			}
 		}
+	}
+	
+	public boolean isShown(){
+		return shown;
 	}
 }
