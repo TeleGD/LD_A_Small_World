@@ -182,8 +182,11 @@ public class Enemy extends Entity{
 	public void move() {
 		// Check if the player is in direct view
 		Player p = World.getPlayer();
-		if(distToPlayer(p) <= 10 && isInView(p)){
+		if(isInView(p)){
 			// Then move towards it
+			if(distToPlayer(p) <= 10){
+				//Enter combat
+			}
 		}
 		else {
 			// Or do nothing
