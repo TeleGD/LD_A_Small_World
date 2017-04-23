@@ -192,8 +192,8 @@ public class Enemy extends Entity{
 			// Then move towards it
 			targetX = p.getX();
 			targetY = p.getY();
-			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*speed;
-			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*speed;
+			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*getSpeed();
+			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*getSpeed();
 			if(distToPlayer(p) <= 10){
 				//Enter combat
 				fightFlag = true;
@@ -201,8 +201,8 @@ public class Enemy extends Entity{
 		}
 		else {
 			// Or move towards the last known location
-			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*speed;
-			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*speed;
+			x = x + ((x-targetX)/Math.abs(x-targetX))*dt*getSpeed();
+			y = y + ((y-targetY)/Math.abs(y-targetY))*dt*getSpeed();
 		}
 	}
 	
